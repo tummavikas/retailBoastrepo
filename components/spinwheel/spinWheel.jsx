@@ -1,11 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-
-// Import sound files (place them in the public folder)
-const spinSound = './spin-sound.mp3'; // Add your spin sound file
-const winSound = './win-sound.mp3'; // Add your win sound file
-
 const discounts = [
   { value: 10, text: '10% OFF' },
   { value: 20, text: '20% OFF' },
@@ -129,8 +124,6 @@ const SpinWheel = () => {
   const [result, setResult] = useState(null);
   const [rotation, setRotation] = useState(0);
 
-  const spinAudioRef = useRef(new Audio(spinSound));
-  const winAudioRef = useRef(new Audio(winSound));
 
   const getRandomDegree = () => {
     const segmentDegree = 360 / discounts.length; // 36 degrees per segment
@@ -145,8 +138,6 @@ const SpinWheel = () => {
       const newRotation = rotation + getRandomDegree();
       setRotation(newRotation);
 
-      // Play spin sound
-      spinAudioRef.current.play();
 
       setTimeout(() => {
         const finalDegree = newRotation % 360;
@@ -154,8 +145,6 @@ const SpinWheel = () => {
         setResult(discounts[resultIndex]);
         setSpinning(false);
 
-        // Play win sound
-        winAudioRef.current.play();
       }, 5000);
     }
   };
@@ -198,9 +187,6 @@ const SpinWheel = () => {
         You won: {result.value}% discount! 🎉 {/* Use the value property */}
       </Typography>}
 
-      {/* Audio elements for sound effects */}
-      <audio ref={spinAudioRef} src={spinSound} />
-      <audio ref={winAudioRef} src={winSound} />
     </WheelContainer>
   );
 };
