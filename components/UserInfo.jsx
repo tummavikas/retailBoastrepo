@@ -28,21 +28,21 @@ export default function UserInfo() {
 
     <div className="grid grid-rows-2 gap-10">
       <div className="flex items-center justify-center border border-gray-300 bg-gray-100 text-xl font-bold">
-      {/* <div className="flex flex-col items-center justify-center bg-gray-200">
+      <div className="flex flex-col items-center justify-center bg-gray-200">
       <h1 className="text-2xl font-bold mb-4">Scratch to Win!</h1>
-      <ScratchCardContainer />
-    </div> */}
-        <ScratchCard
-  prizeContent={
-    <div className="text-center">
-      <h2 className="text-2xl font-bold mb-2">You Won!</h2>
-      <p className="text-lg">$100 Gift Card</p>
-    </div>
-  }
-  overlayImage="/next.svg"
-  scratchRadius={15}
+      <ScratchCard
+    prizeContent={
+      <div className="text-center">
+        <h2 className="text-2xl font-bold m-5">You Won!</h2>
+        <p className="text-lg">$100 Gift Card</p>
+      </div>
+    }
+    overlayImage="/vercel.svg"
+    scratchRadius={15}
     />
     
+    </div>
+      
     <div className="App">
       <SpinWheel />
     </div>
