@@ -1,5 +1,5 @@
 import mongoose, { Schema, models } from "mongoose";
-
+import { v4 as uuidv4 } from "uuid";
 const userSchema = new Schema(
   {
     name: {
@@ -13,6 +13,16 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    },
+    userId: {
+      type: String,
+      default: uuidv4,
+      unique: true
     },
   },
   { timestamps: true }

@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -27,7 +28,15 @@ export default function LoginForm() {
         return;
       }
 
-      router.replace("dashboard");
+      // Get the full user session to check role
+      const sessionRes = await fetch('/api/auth/session');
+      const session = await sessionRes.json();
+      
+      if (session?.user?.role === 'admin') {
+        router.replace("/admin");
+      } else {
+        router.replace("/dashboard");
+      }
     } catch (error) {
       console.log(error);
     }

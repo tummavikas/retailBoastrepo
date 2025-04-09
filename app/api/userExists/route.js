@@ -1,15 +1,24 @@
-import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
+import { connectMongoDB } from "lib/mongodb";
+import User from "models/user";
+import Admin from "models/admin";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    await connectMongoDB();
     const { email } = await req.json();
-    const user = await User.findOne({ email }).select("_id");
-    console.log("user: ", user);
-    return NextResponse.json({ user });
+    await connectMongoDB();
+    
+    const user = await User.findOne({ email });
+    const admin = await Admin.findOne({ email });
+    
+    return NextResponse.json({ 
+      exists: !!(user || admin) 
+    }, { status: 200 });
+    
   } catch (error) {
-    console.log(error);
+    return NextResponse.json(
+      { message: "An error occurred while checking user." },
+      { status: 500 }
+    );
   }
 }

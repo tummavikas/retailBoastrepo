@@ -2,15 +2,33 @@
 
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import SpinWheel from "./spinwheel/spinWheel";
-import ScratchCard from "./ScratchCard/ScratchCard";
+import { useState } from "react";
+import Scanner from "./Scanner";
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQrcode } from '@fortawesome/free-solid-svg-icons'
+import Tutorial from "./tutorial/tutorial";
+import BillingForm from "./BillingForm/Billing";
+
+
+library.add(faQrcode)
 
 export default function UserInfo() {
+
+
   const { data: session } = useSession();
+  const [error, setError] = useState("");
+  const [showScanner, setShowScanner] = useState(false);
+  const [scannedData, setScannedData] = useState(null);
+  const [showBillingForm, setShowBillingForm] = useState(false);
+
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-8 bg-zince-300/10 flex flex-col gap-2 my-6">
+    <div className="min-h-screen w-full p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        <span >Welcome To RetailBoost</span>
+        <div><Tutorial /></div>
+
         <div>
           Name: <span className="font-bold">{session?.user?.name}</span>
         </div>
@@ -18,37 +36,48 @@ export default function UserInfo() {
           Email: <span className="font-bold">{session?.user?.email}</span>
         </div>
 
+        {error && <div className="text-red-500">{error}</div>}
+        <div className="mt-2 flex justify-center">
+          <FontAwesomeIcon 
+            icon={faQrcode} 
+            className="text-3xl text-blue-500 cursor-pointer hover:text-blue-700" 
+            onClick={() => setShowScanner(true)}
+          />
+        </div>
+        {showScanner && (
+          <Scanner 
+            onClose={() => setShowScanner(false)}
+            onScanSuccess={(data) => {
+              setShowScanner(false);
+              setScannedData(data);
+              setShowBillingForm(true);
+            }}
+          />
+        )}
+
+        {showBillingForm ? (
+          <BillingForm scannedData={scannedData} isEditable={false} />
+        ) : scannedData && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+            <h3 className="font-bold text-lg mb-2">Scanned QR Data:</h3>
+            <div className="p-3 bg-white rounded border border-gray-300 mb-3">
+              <code>{scannedData}</code>
+            </div>
+            <button
+              onClick={() => setShowBillingForm(true)}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded"
+            >
+              Use This Data for Billing
+            </button>
+          </div>
+        )}
+        
         <button
           onClick={() => signOut()}
-          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
-        >
+          className="bg-red-500 text-white font-bold px-6 py-2 mt-3">
           Log Out
         </button>
       </div>
-
-    <div className="grid grid-rows-2 gap-10">
-      <div className="flex items-center justify-center border border-gray-300 bg-gray-100 text-xl font-bold">
-      <div className="flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-2xl font-bold mb-4">Scratch to Win!</h1>
-      <ScratchCard
-    prizeContent={
-      <div className="text-center">
-        <h2 className="text-2xl font-bold m-5">You Won!</h2>
-        <p className="text-lg">$100 Gift Card</p>
-      </div>
-    }
-    overlayImage="/vercel.svg"
-    scratchRadius={15}
-    />
-    
-    </div>
-      
-    <div className="App">
-      <SpinWheel />
-    </div>
-
-      </div>
-    </div>
     </div>
   );
 }
