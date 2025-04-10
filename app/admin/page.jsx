@@ -54,7 +54,7 @@ export default function AdminDashboard() {
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <p className="mb-4">Welcome, Admin {session.user.name}!</p>
-        
+        <p className="mb-4">AdminId : {session.user.adminId}!</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-blue-50 p-4 rounded-lg">
             <h3 className="font-semibold text-blue-800">Total Sales</h3>
@@ -72,6 +72,8 @@ export default function AdminDashboard() {
 
         <div className="mb-8 p-4 border rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Your QR Code</h2>
+          <p>{session.user.adminId}</p>
+          {console.log(session.user.adminId)}
           <AdminIdQR adminId={session.user.adminId} />
           <div className="p-4 bg-white rounded border">
           </div>
