@@ -30,7 +30,7 @@ export default function TransactionTable() {
       <table className="min-w-full bg-white">
         <thead>
           <tr>
-            <th className="py-2 px-4 border">User</th>
+            <th className="py-2 px-4 border">Customer</th>
             <th className="py-2 px-4 border">Amount</th>
             {/* <th className="py-2 px-4 border">Discount</th> */}
             <th className="py-2 px-4 border">Final Amount</th>
@@ -43,9 +43,9 @@ export default function TransactionTable() {
             transactions.map((transaction) => (
               <tr key={transaction._id}>
                 <td className="py-2 px-4 border">{transaction.userName}</td>
-                <td className="py-2 px-4 border">${transaction.amount?.toFixed(2)}</td>
+                <td className="py-2 px-4 border">₹{transaction.amount?.toFixed(2)}</td>
                 {/* <td className="py-2 px-4 border">${transaction.discount?.toFixed(2)}</td> */}
-                <td className="py-2 px-4 border">${transaction.finalAmount?.toFixed(2)}</td>
+                <td className="py-2 px-4 border">₹{transaction.finalAmount?.toFixed(2)}</td>
                 <td className="py-2 px-4 border">
                   {new Date(transaction.createdAt).toLocaleDateString()}
                 </td>
