@@ -1,6 +1,8 @@
 // components/Tutorial.js
 import TutorialStep from './tutorialSteps';
-import { faQrcode, faDollarSign, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import { faQrcode, faTicketAlt,faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Tutorial = () => {
   return (

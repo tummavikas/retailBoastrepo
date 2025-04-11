@@ -108,6 +108,18 @@ export default function BillingForm({ scannedData, isEditable = true }) {
                   step="0.01"
                   required
                 />
+                <input 
+                                  type="number"
+                                  name="billingAmount"
+                                  value={formData.billingAmount}
+                                  onChange={handleChange}
+                                  className="w-full p-2 border rounded mt-4"
+                                  placeholder="Coupen code"
+                                  min="0"
+                                  step="0.01"
+                                  required
+                                  >
+                </input>
               </div>
               <button
                 type="submit"

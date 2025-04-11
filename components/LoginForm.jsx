@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import SpinWheel from "./spinwheel/spinWheel";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -72,6 +73,7 @@ export default function LoginForm() {
           <Link className="text-sm mt-3 text-right" href={"/register"}>
             Don't have an account? <span className="underline">Register</span>
           </Link>
+
         </form>
       </div>
     </div>

@@ -15,6 +15,21 @@ export default function UserRegistrationForm() {
 
   const [error, setError] = useState("");
   const router = useRouter();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name.includes('.')) {
+      const [parent, child] = name.split('.');
+      setFormData(prev => ({
+        ...prev,
+        [parent]: {
+          ...prev[parent],
+          [child]: value
+        }
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +40,18 @@ export default function UserRegistrationForm() {
     }
 
     try {
-      const res = await fetch("api/user/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          role: "user" // Explicit role assignment
+        })
+          
       });
+      console.log(formData)
 
       if (res.ok) {
         router.push("/dashboard");
@@ -52,7 +72,7 @@ export default function UserRegistrationForm() {
         <input
           name="name"
           value={formData.name}
-          onChange={(e) => setFormData({...formData, name: e.target.value})}
+          onChange={handleChange}
           type="text"
           placeholder="Full Name"
           className="w-full p-2 border rounded"
@@ -61,7 +81,7 @@ export default function UserRegistrationForm() {
         <input
           name="email"
           value={formData.email}
-          onChange={(e) => setFormData({...formData, email: e.target.value})}
+          onChange={handleChange}
           type="email"
           placeholder="Email"
           className="w-full p-2 border rounded"
@@ -70,7 +90,7 @@ export default function UserRegistrationForm() {
         <input
           name="phone"
           value={formData.phone}
-          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+          onChange={handleChange}
           type="tel"
           placeholder="Phone Number"
           className="w-full p-2 border rounded"
@@ -78,7 +98,7 @@ export default function UserRegistrationForm() {
         <input
           name="password"
           value={formData.password}
-          onChange={(e) => setFormData({...formData, password: e.target.value})}
+          onChange={handleChange}
           type="password"
           placeholder="Password"
           className="w-full p-2 border rounded"

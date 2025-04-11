@@ -58,7 +58,7 @@ export default function ScannerPage({ onScanSuccess }) {
   };
 
   return (
-    <div>
+    <div className="flex justify-center text-center">
       <Scanner
         formats={[
           "qr_code",
