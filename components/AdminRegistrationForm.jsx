@@ -57,7 +57,7 @@ export default function AdminRegistrationForm() {
     }
 
     try {
-      const resUserExists = await fetch("api/userExists", {
+      const resUserExists = await fetch("/api/userExists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -72,12 +72,15 @@ export default function AdminRegistrationForm() {
         return;
       }
 
-      const res = await fetch("api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          role: "admin" // Explicit role assignment
+        })
       });
 
       if (res.ok) {
@@ -162,7 +165,7 @@ export default function AdminRegistrationForm() {
               onChange={handleChange}
               className="w-full p-2 border rounded"
             >
-              <option value="kirana">Kirana Store</option>
+              <option value="Store">Kirana Store</option>
               <option value="gym">Gym</option>
               <option value="shopping">Shopping</option>
               <option value="other">Other</option>
@@ -247,7 +250,7 @@ export default function AdminRegistrationForm() {
             <h3 className="font-bold">Discount Settings</h3>
             <div className="grid grid-cols-4 gap-4">
               <div className="space-y-2">
-                <label>Discount Options</label>
+                <label>Discount Range</label>
                 <div className="flex gap-2">
                   <span
                     onClick={() => setFormData(prev => ({
@@ -282,6 +285,16 @@ export default function AdminRegistrationForm() {
                     }`}
                   >
                     10% Discount
+                  </span>
+                  <span
+                    className={`px-4 py-2 rounded cursor-pointer bg-gray-200 hover:bg-gray-300`}
+                  >
+                    20% Discount
+                  </span>
+                  <span
+                    className={`px-4 py-2 rounded cursor-pointer bg-gray-200 hover:bg-gray-300`}
+                  >
+                    50% Discount
                   </span>
                 </div>
               </div>

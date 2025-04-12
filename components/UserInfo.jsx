@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQrcode } from '@fortawesome/free-solid-svg-icons'
 import Tutorial from "./tutorial/tutorial";
 import BillingForm from "./BillingForm/Billing";
-
+import SpinWheel from "./spinwheel/spinWheel";
 
 library.add(faQrcode)
 
@@ -26,7 +26,7 @@ export default function UserInfo() {
   return (
     <div className="min-h-screen w-full p-8">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-        <span >Welcome To RetailBoost</span>
+        <h1>Welcome To RetailBoost</h1>
         <div><Tutorial /></div>
 
         <div>
@@ -57,6 +57,7 @@ export default function UserInfo() {
 
         {showBillingForm ? (
           <BillingForm scannedData={scannedData} isEditable={false} />
+          // <BillingForm scannedData="d7189b992" isEditable={false} />
         ) : scannedData && (
           <div className="mt-4 p-4 bg-gray-100 rounded-lg">
             <h3 className="font-bold text-lg mb-2">Scanned QR Data:</h3>
@@ -77,6 +78,7 @@ export default function UserInfo() {
           className="bg-red-500 text-white font-bold px-6 py-2 mt-3">
           Log Out
         </button>
+        <SpinWheel />
       </div>
     </div>
   );

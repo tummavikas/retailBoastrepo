@@ -24,7 +24,7 @@
     "eslint-config-next": "13.4.12",
     "jspdf": "^3.0.1",
     "mongoose": "^7.4.1",
-    "next": "13.4.12",
+    "next": "^13.5.11",
     "next-auth": "^4.22.3",
     "postcss": "8.4.27",
     "qrcode": "^1.5.4",
