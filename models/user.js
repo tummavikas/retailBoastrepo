@@ -1,5 +1,6 @@
 import mongoose, { Schema, models } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+
 const userSchema = new Schema(
   {
     name: {
@@ -29,4 +30,5 @@ const userSchema = new Schema(
 );
 
 const User = models.User || mongoose.model("User", userSchema);
+
 export default User;

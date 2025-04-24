@@ -28,7 +28,6 @@ export default function UserInfo() {
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
         <span >Welcome To RetailBoost</span>
         <div><Tutorial /></div>
-
         <div>
           Name: <span className="font-bold">{session?.user?.name}</span>
         </div>
